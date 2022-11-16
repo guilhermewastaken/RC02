@@ -1,0 +1,19 @@
+1- Configurate IP for tux 3 and 4
+  How to get the IP:
+    Network (fixed): 172.16.[wokrbench]0.
+    Machine and mask: 1 (if tux3) or 254 (if tux4) / 24 (3 octets)
+  Instructions to setup the IP:
+    systemctl restart networking
+    ifconfig eth0 up
+    ifconfig eth0 IP
+  Machine configurations are done in terminal, you are setting it up for ethernet port 0
+  
+2- Connect cables
+  Disconnect from network (if connected there will be a cable between P1.1 and the switch)
+  Connect eth0 for each machine to the switch (any port, except config)
+  
+3- Setup the switch
+  Connect cable from switch console to a serial port from one of the machines
+  In the machine, acces GtkTerm and reset the configurations ( /system reset-configuration )
+  
+4- With wireshark reading, ping one machine from the other. Save the results
