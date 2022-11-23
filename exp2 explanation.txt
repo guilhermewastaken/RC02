@@ -1,0 +1,21 @@
+1. Connected tuxY2, IP address: 172.16.41.1 | MAC address: 00:22:64:19:02:ba
+
+2. bridges created, removed default bridges and added each tux to the respective one
+
+3. --
+
+4. capturing
+
+5. tux 3 pinged tux 4 (saved results in github), tux 2 network is unreachable (since it is in another bridge i believe, as the exercise image shows)
+
+6. --
+
+7. ping broadcast 3 only 4 listens (2 is in a different network)
+
+8. -- 
+
+9. --
+
+10. --
+
+extra: ping broadcast 2 no1 listens (3 and 4 in different network)
