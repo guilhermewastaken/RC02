@@ -1,0 +1,59 @@
+Part 2 Exp1 //TO DO
+
+a)
+
+b)
+
+c)
+
+d)
+
+e)
+
+f)
+
+g)
+
+Part 2 Exp2
+
+a) 	To configure a bridge, we need to create the bridge by using the command: "/interface bridge add name=bridgeY0"
+	Then, we need to remove the ports where the aimed resources are connected (default bridge) by using:
+	"/interface bridge port remove [find interface =etherX]"
+	Finally we add the now free resource to the corresponding port to bridgeY0 by using:
+	"/interface bridge port add bridge=bridgeY0 interface=etherX"
+
+b) 	There are 2 broadcast domains, 1 for tuxY3 and tuxY4 and another one for tuxY2, since their networks can't reach one
+	another. We can conclude this from the logs, since the tuxY2 does not respond to the tuxY3 broadcast ping, and both
+	tuxY3 and tuxY4 don't answer to the tuxY2 broadcast ping.
+
+Part 2 Exp3
+
+a)	?? //TO DO
+
+b)	?? // TO DO
+
+c) 	The observed ARP messages and associated MAC addresses are:
+				      "Who has 172.16.40.1? Tell 172.16.40.254" -> "172.16.40.1 is at 00:21:5a:61:2f:13"
+				      "Who has 172.16.40.254? Tell 172.16.40.1" -> "172.16.40.254 is at 00:21:5a:c3:78:76"
+				      "Who has 172.16.41.1? Tell 172.16.41.253" -> "172.16.41.1 is at 00:22:64:19:02:ba"
+				      "Who has 172.16.41.253? Tell 172.16.41.1" -> "172.16.41.253 is at 00:c0:df:02:55:95"
+	They are observed, because tuxY4, where the bridges Y0 and Y1 are connected, needs to know the which bridge has the
+	following address, in order to correctly redirect the message.
+
+d)	The ICMP packets observed are the (ping) request and (ping) reply from the tuxY3 (172.16.40.1) to tuxY2 (172.16.41.1)
+	and vice-versa. They are observed, because using the tuxY4 to connect both bridges, there is a valid connection between
+	tuxY3 and tuxY4 (since the connection exists, the request (ping) gets a reply (ping) back).
+
+e)	The IP addresses are the corresponding addresses from the tuxY3 and tuxY4 | 172.16.40.1 and 172.16.41.1
+	The MAC addresses are ?? // TO DO
+
+Part 2 Exp4
+
+a)	In order to configure a static route in a commercial router, we need to use the command
+	"/ip route add dst-address=X gateway=X" outside the terminal (not sure of the application name)
+
+b) //TO DO
+
+c) // TO DO
+
+d) // TO DO
