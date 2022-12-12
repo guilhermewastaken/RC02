@@ -56,4 +56,5 @@ b) //TO DO
 
 c) // TO DO
 
-d) // TO DO
+d) 	NAT is responsible for mapping an IP address space into another address. It's a way to map multiple local private addresses to a public one
+	before transferring the information. Organizations that want multiple devices to use a single IP Address use NAT.
