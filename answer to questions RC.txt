@@ -1,18 +1,18 @@
 Part 2 Exp1 //TO DO
 
-a)
+a)	ARP is the protocol used to associate the IP address to a MAC address. When a host wants to send a packet to another host on its local area network (LAN), it 	      first sends out (broadcasts) an ARP packet.
 
-b)
+b)	
 
-c)
+c)	The PING command sends an Internet Control Message Protocol (ICMP/ICMPv6) Echo Request to a host, gateway, or router with the expectation of 			receiving a reply.
 
-d)
+d)	
 
-e)
+e)	
 
-f)
+f)	The frame size of a standard Ethernet frame is the sum of the Ethernet header (14 bytes), the payload (IP packet), and the Frame Check Sequence field (4 	 bytes).
 
-g)
+g)	A loopback interface is a virtual interface that is always reachable if at least one of the IP interfaces on the switch is working. For that reason, a loopback 	interface is useful for debugging, since its IP address can always be pinged if any other switch interface is up.
 
 Part 2 Exp2
 
@@ -30,7 +30,7 @@ Part 2 Exp3
 
 a)	?? //TO DO
 
-b)	?? // TO DO
+b)	The forwarding table contains the ingress port number, the source MAC address, the destination MAC address, the Ether Type, the VLAN ID, the VLAN priority, the 	source IP address, the destination IP address, the IP protocol, the IP ToS, the TCP source port, and the TCP destination port.
 
 c) 	The observed ARP messages and associated MAC addresses are:
 				      "Who has 172.16.40.1? Tell 172.16.40.254" -> "172.16.40.1 is at 00:21:5a:61:2f:13"
@@ -45,7 +45,7 @@ d)	The ICMP packets observed are the (ping) request and (ping) reply from the tu
 	tuxY3 and tuxY4 (since the connection exists, the request (ping) gets a reply (ping) back).
 
 e)	The IP addresses are the corresponding addresses from the tuxY3 and tuxY4 | 172.16.40.1 and 172.16.41.1
-	The MAC addresses are ?? // TO DO
+	The MAC addresses are the unique identifiers that are assigned to a Network Interface Controller | They are in the format of FF:FF:FF:FF:FF:FF.
 
 Part 2 Exp4
 
@@ -54,7 +54,14 @@ a)	In order to configure a static route in a commercial router, we need to use t
 
 b) //TO DO
 
-c) // TO DO
+c)	To configure the NAT in a commercial router, we need to run the command "/ip firewall nat add chain=srcnat action=masquerade out-interface=ether1"
 
 d) 	NAT is responsible for mapping an IP address space into another address. It's a way to map multiple local private addresses to a public one
 	before transferring the information. Organizations that want multiple devices to use a single IP Address use NAT.
+
+Part 2 Exp5
+
+a)	To configure the DNS service at an host, we need to EDIT the content of the file "/etc/resolv.conf". Clean the file and add the IP address of the DNS server
+	nameserver "xxx.xxx.xxx.xxx".
+
+b)	DNS uses TCP packets for Zone transfer and UDP packets for name, and queries. UDP packets can be used to exchange small information whereas TCP packets	    	    must be used to exchange information larger than 512 bytes.
