@@ -1,0 +1,81 @@
+1- Tux Setup----------------------------------------------------------
+1.1- Reset configs
+For each computer:
+	Reset network
+		service networking restart
+	Confirm DNS
+		go to /etc/resolv.conf
+		file must have only "nameserver 172.16.1.1"
+
+1.2- Assign IPs
+tuxY4 - 172.16.Y0.254 and 172.16.Y1.253 (mini router)
+tuxY3 - 172.16.Y0.1
+tuxY2 - 172.16.Y1.1
+For each computer (X = 1 for tuxY4 .253, else 0):
+	"ifcongif eth[X] up
+	ifconfig eth[X] [ip]/24
+	ifconfig eth[X]"
+
+1.3- Add configs
+In tuxY4:
+	Enable IP forwarding
+		echo 1 > /proc/sys/net/ipv4/ip_forward
+	Disable ICMP ignore
+		echo 0 > /proc/sys/net/ipv4/icmp_echo_ignore_broadcasts
+In tuxY2:
+	Accept redirects:
+		echo 0 > /proc/sys/net/ipv4/conf/eth0/accept_redirects
+		echo 0 > /proc/sys/net/ipv4/conf/all/accept_redirects
+
+2- Bridge Setup (without router)---------------------------------------
+bridgeY0 -> tuxY3 and tuxY4 (.254)
+bridgeY1 -> tuxY2, tuxY4 (.253)
+
+2.1- Connect cables
+Switch Control:
+	Connect Switch Console to "connection port"
+	Connect the other "connection port" to a Tux S0 port
+	Open GKTerm and set 115200
+
+Bridge Connections (confirm light):
+	tuxY[X] eth0 -> Switch ether[X]
+
+2.2- Reset configs (in control tux)
+	/system reset-configuration
+
+2.3- Create bridges
+	/interface bridge add name=[name]
+
+2.4- Add ports to bridges
+	/interface bridge port remove [find interface=[etherX]]
+	/interface port add bridge=[bridgename] interface=[etherX]
+
+3- Router Setup------------------------------------------------------
+3.1- Connect cables
+	Router Control:
+		???? igual ao switch?
+
+	Router Connections:
+		Connect router's ether1 to PY.1 (lab network)
+		Connect router's ether2 to a port in the switch (save the ether)
+
+3.2- Reset configs
+	Reset configuration
+		fill credentials (username: admin, password: blacn)
+		/system reset-configuration
+
+3.3- Add default gateway
+	/ip route add dst-address=0.0.0.0/0 gateway=172.16.1.254
+
+3.4- Add static routes
+	/ip route add dst-address=[tuxY2, .0/24] gateway=[tuxY4]
+
+4- Add routes---------------------------------------------------------
+tuxY2:
+	/route add default gw [router]
+tuxY4:
+	/route add default gw [router]
+tuxY3:
+	/route add default gw [tuxY4(.253)]
+	
+Final: Run TCP in tuxY3 and tuxY2
