@@ -2,13 +2,18 @@ Part 2 Exp1 //TO DO
 
 a)	ARP is the protocol used to associate the IP address to a MAC address. When a host wants to send a packet to another host on its local area network (LAN), it 	      first sends out (broadcasts) an ARP packet.
 
-b)	
+b)	When tuxY1 sends a packet to tuxY4, tuxY1 doesn't know the MAC address associated to the IP address of tuxY4. Then, it will try to send a packet ARP in broadcast, with the IP address of and the MAC address of tuxY1. The MAC address of the destinatary, is 00:00:00:00:00:00.
+Then, tuxY4 will send  an ARP packet to tuxY1, with its MAC address and IP address. In conclusion, each ARP packet has information about the MAC and IP address of the machine who sends, and about the machine who receives.
+
 
 c)	The PING command sends an Internet Control Message Protocol (ICMP/ICMPv6) Echo Request to a host, gateway, or router with the expectation of 			receiving a reply.
 
-d)	
+d)	When ping is done from tuxY1 to tuxY4, the packet request has the following addresses: IP address of the source (tuxY1: 172.16.40.1); MAC address of the source (tuxY1: _________); IP address of the destinatary(tuxY4: 172.16.40.254); MAC address of the destinatary(tuxY4: _________).
+The packet reply has the following addresses: IP address of the source (tuxY4: 172.16.40.254); MAC address of the source (tuxY4: __________); IP address of the destinatary(tuxY1: 172.16.40.1); MAC address of the destinatary(tuxY1: __________).
 
-e)	
+
+e)	We have to analyse the Ethernet header . In case of 0x0800, the type is IP, and in particular, we can analyse its IP header. If the value is 1, then the type of protocol is ICMP. If the Ethernet header was 0x0806, the type is ARP.
+
 
 f)	The frame size of a standard Ethernet frame is the sum of the Ethernet header (14 bytes), the payload (IP packet), and the Frame Check Sequence field (4 	 bytes).
 
@@ -28,7 +33,11 @@ b) 	There are 2 broadcast domains, 1 for tuxY3 and tuxY4 and another one for tux
 
 Part 2 Exp3
 
-a)	?? //TO DO
+a)	Some routes are added automatically, connecting the machines to the VLANs they are in. This means, tux41 has route to vlan40, tux42 to vlan41, and tux44 to both. The gateway is default (0.0.0.0).
+Moreover, for tux41 the route -route add -net 172.16.41.0/24 gw 172.16.40.254 was added. This means, when tux41 wants to send a ping to vlan41, it uses as a gateway the router (tux44). This router has a forwarding table which makes this possible.
+In addition, for tux44 the route -route add -net 172.16.40.1/24 gw 172.16.41.253 is added. This means, when we send a ping or a message to vlan40, it is sent before to the router (172.16.41.253).
+
+
 
 b)	The forwarding table contains the ingress port number, the source MAC address, the destination MAC address, the Ether Type, the VLAN ID, the VLAN priority, the 	source IP address, the destination IP address, the IP protocol, the IP ToS, the TCP source port, and the TCP destination port.
 
@@ -52,7 +61,10 @@ Part 2 Exp4
 a)	In order to configure a static route in a commercial router, we need to use the command
 	"/ip route add dst-address=X gateway=X" outside the terminal (not sure of the application name)
 
-b) //TO DO
+b)	In case the route exists, the packet follow that route. If not, they are redirected to the router (with the default route). In step 4, the redirects are being desactivated. Furthermore, for tux44 and tux42 the default route was defined as the router Rc.
+The tux44 is the only one who has connection to tux41, with vlan40. The others (tux44, tux42 and the router) are all linked to vlan41. The router knows the way to access tux41 is through tux44. 
+When pinging from tux42 to tux41, as we don't have the route, and they are not in the same interface, tux42 sends the ping to the router (its default route) and, as the router knows the route, it sends to tux44, to finally reach tux41. In the nexts pings, the way is going to be the same.
+  
 
 c)	To configure the NAT in a commercial router, we need to run the command "/ip firewall nat add chain=srcnat action=masquerade out-interface=ether1"
 
